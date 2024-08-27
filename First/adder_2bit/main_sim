@@ -1,0 +1,81 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x12a608d60 .scope module, "adder_2bit_tb" "adder_2bit_tb" 2 14;
+ .timescale 0 0;
+v0x12a61f760_0 .var "A", 1 0;
+v0x12a61f7f0_0 .var "B", 1 0;
+v0x12a61f880_0 .net "Carry", 0 0, L_0x12a61fa00;  1 drivers
+v0x12a61f950_0 .net "Sum", 2 0, L_0x12a61fff0;  1 drivers
+S_0x12a6075c0 .scope module, "uut" "adder_2bit" 2 20, 2 1 0, S_0x12a608d60;
+ .timescale 0 0;
+    .port_info 0 /INPUT 2 "A";
+    .port_info 1 /INPUT 2 "B";
+    .port_info 2 /OUTPUT 3 "Sum";
+    .port_info 3 /OUTPUT 1 "Carry";
+L_0x12a620110 .functor BUFZ 1, L_0x12a61fa00, C4<0>, C4<0>, C4<0>;
+v0x12a608ed0_0 .net "A", 1 0, v0x12a61f760_0;  1 drivers
+v0x12a61ef80_0 .net "B", 1 0, v0x12a61f7f0_0;  1 drivers
+v0x12a61f030_0 .net "Carry", 0 0, L_0x12a61fa00;  alias, 1 drivers
+v0x12a61f0e0_0 .net "Sum", 2 0, L_0x12a61fff0;  alias, 1 drivers
+v0x12a61f190_0 .net *"_ivl_0", 1 0, L_0x12a61fae0;  1 drivers
+L_0x130078058 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0x12a61f280_0 .net *"_ivl_12", 0 0, L_0x130078058;  1 drivers
+v0x12a61f330_0 .net *"_ivl_13", 2 0, L_0x12a61fe80;  1 drivers
+v0x12a61f3e0_0 .net *"_ivl_19", 0 0, L_0x12a620110;  1 drivers
+v0x12a61f490_0 .net *"_ivl_5", 2 0, L_0x12a61fbe0;  1 drivers
+L_0x130078010 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0x12a61f5a0_0 .net *"_ivl_8", 0 0, L_0x130078010;  1 drivers
+v0x12a61f650_0 .net *"_ivl_9", 2 0, L_0x12a61fd40;  1 drivers
+L_0x12a61fa00 .part L_0x12a61fe80, 2, 1;
+L_0x12a61fae0 .part L_0x12a61fe80, 0, 2;
+L_0x12a61fbe0 .concat [ 2 1 0 0], v0x12a61f760_0, L_0x130078010;
+L_0x12a61fd40 .concat [ 2 1 0 0], v0x12a61f7f0_0, L_0x130078058;
+L_0x12a61fe80 .arith/sum 3, L_0x12a61fbe0, L_0x12a61fd40;
+L_0x12a61fff0 .concat8 [ 2 1 0 0], L_0x12a61fae0, L_0x12a620110;
+    .scope S_0x12a608d60;
+T_0 ;
+    %vpi_call 2 28 "$dumpfile", "main.vcd" {0 0 0};
+    %vpi_call 2 29 "$display", "A\011B\011Sum\011Carry" {0 0 0};
+    %pushi/vec4 0, 0, 2;
+    %store/vec4 v0x12a61f760_0, 0, 2;
+T_0.0 ;
+    %load/vec4 v0x12a61f760_0;
+    %pad/u 32;
+    %cmpi/u 3, 0, 32;
+    %flag_or 5, 4;
+    %jmp/0xz T_0.1, 5;
+    %pushi/vec4 0, 0, 2;
+    %store/vec4 v0x12a61f7f0_0, 0, 2;
+T_0.2 ;
+    %load/vec4 v0x12a61f7f0_0;
+    %pad/u 32;
+    %cmpi/u 3, 0, 32;
+    %flag_or 5, 4;
+    %jmp/0xz T_0.3, 5;
+    %delay 10, 0;
+    %vpi_call 2 32 "$display", "%b\011%b\011%b\011%b", v0x12a61f760_0, v0x12a61f7f0_0, v0x12a61f950_0, v0x12a61f880_0 {0 0 0};
+    %load/vec4 v0x12a61f7f0_0;
+    %addi 1, 0, 2;
+    %store/vec4 v0x12a61f7f0_0, 0, 2;
+    %jmp T_0.2;
+T_0.3 ;
+    %load/vec4 v0x12a61f760_0;
+    %addi 1, 0, 2;
+    %store/vec4 v0x12a61f760_0, 0, 2;
+    %jmp T_0.0;
+T_0.1 ;
+    %vpi_call 2 35 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "main.v";
